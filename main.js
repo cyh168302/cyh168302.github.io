@@ -780,8 +780,8 @@ function startDraw(path,beatmap,bpm,name,difficulty,level,musicpath,iconpath,com
 function get_beatmaps(data)
 {
     get_newsongs();
-    document.getElementById("songs").style.width = "350px";
-	var innerhtml = "";
+    document.getElementById("songs").style.width = "500px";
+    var innerhtml = "<table style='width: 500px;text-align: center;'>";
 	var songslist = document.getElementById("songs");
 	var len = data.length;
 	var song_attr = document.getElementById("song_attr").value;
@@ -803,42 +803,48 @@ function get_beatmaps(data)
 					{
 						if ((data[i]["attribute_icon_id"]==song_attr)|(song_attr=="0"))
 						{
-							var beatmap_path = "http://a.llsif.win/live/json/"+data[i]["notes_setting_asset"];
-							var sound_asset = "http://r.llsif.win/"+data[i]["sound_asset"];
-							var icon_asset = "http://r.llsif.win/"+data[i]["live_icon_asset"];
-							var difficulty = data[i]["difficulty_text"];
-							var level = data[i]["stage_level"];
-							var name = data[i]["name"];
-							switch(data[i]["attribute_icon_id"])
-							{
-								case 1:{innerhtml = innerhtml + "<p onclick=readbeatmap('1','" + 
-									beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
-									sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-									"') style=\"color:red;cursor:pointer\">";break;}
-								case 2:{innerhtml = innerhtml + "<p onclick=readbeatmap('1','" + 
-									beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
-									sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-									"') style=\"color:green;cursor:pointer\">";break;}
-								case 3:{innerhtml = innerhtml + "<p onclick=readbeatmap('1','" + 
-									beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
-									sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-									"') style=\"color:blue;cursor:pointer\">";break;}
-								default:break;
-							}
-							if(data[i]["live_setting_id"]>20000)innerhtml = innerhtml + "ARCADE - " + data[i]["name"]+"</p>";
-							else 
-							{
-								var s_score = data[i]["s_rank_score"];
-								var s_combo = data[i]["s_rank_combo"];
-								var s = s_score/s_combo;
-								var id = data[i]["live_setting_id"];
-								if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
-									innerhtml = innerhtml + data[i]["difficulty_text"] + "(滑) - " + data[i]["name"]+"</p>";
-								else if((id==719)|(id==721)|(id==731))
-									innerhtml = innerhtml + data[i]["difficulty_text"] + "(滑) - " + data[i]["name"]+"</p>";
-								else 
-									innerhtml = innerhtml + data[i]["difficulty_text"] + " - " + data[i]["name"]+"</p>";
-							}
+                            var beatmap_path = "http://a.llsif.win/live/json/"+data[i]["notes_setting_asset"];
+                            var sound_asset = "http://r.llsif.win/"+data[i]["sound_asset"];
+                            var icon_asset = "http://r.llsif.win/"+data[i]["live_icon_asset"];
+                            var difficulty = data[i]["difficulty_text"];
+                            var level = data[i]["stage_level"];
+                            var name = data[i]["name"];
+                            var notes_cnt = data[i]["s_rank_combo"];
+                            switch(data[i]["attribute_icon_id"])
+                            {
+                                case 1:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
+                                    beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" +
+                                    sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] +
+                                    "') style=\"background-color:#FBB;cursor:pointer;height: 30px\">";break;}
+                                case 2:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
+                                    beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" +
+                                    sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] +
+                                    "') style=\"background-color:#BFB;cursor:pointer;height: 30px\">";break;}
+                                case 3:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
+                                    beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" +
+                                    sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] +
+                                    "') style=\"background-color:#BBF;cursor:pointer;height: 30px\">";break;}
+                                default:break;
+                            }
+                            if(data[i]["live_setting_id"]>20000)innerhtml = innerhtml +
+                                "<th style='width:100px;height: 30px'>ARCADE</th><th style='width:60px;'>" +
+                                notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
+                            else
+                            {
+                                var s_score = data[i]["s_rank_score"];
+                                var s_combo = data[i]["s_rank_combo"];
+                                var s = s_score/s_combo;
+                                var id = data[i]["live_setting_id"];
+                                if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
+                                    innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                        "(滑) </th><th style='width:60px;'>" + notes_cnt +  "x</th><th>" + data[i]["name"]+"</th></tr>";
+                                else if((id==719)|(id==721)|(id==731))
+                                    innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                        "(滑) </th><th style='width:60px;'>" + notes_cnt +  "x</th><th>" + data[i]["name"]+"</th></tr>";
+                                else
+                                    innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                        "</th><th style='width:60px;'>" + notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
+                            }
 						}
 					}
 				}	
@@ -861,54 +867,61 @@ function get_beatmaps(data)
 							if ((data[i]["attribute_icon_id"]==song_attr)|(song_attr=="0"))
 							{
 								if(flag)
-								{	
-									innerhtml = innerhtml + "<p>—————————★"+j+"—————————</p>";
+								{
+                                    innerhtml = innerhtml + "<tr><th colspan='3' style='text-align: center;background-color:#BBB;height:40px'>★"+ j+"</th></tr>";
 									flag = false;
 								}
-								var beatmap_path = "http://a.llsif.win/live/json/"+data[i]["notes_setting_asset"];
-								var sound_asset = "http://r.llsif.win/"+data[i]["sound_asset"];
-								var icon_asset = "http://r.llsif.win/"+data[i]["live_icon_asset"];
-								var difficulty = data[i]["difficulty_text"];
-								var level = data[i]["stage_level"];
-								var name = data[i]["name"];
-								switch(data[i]["attribute_icon_id"])
-								{
-									case 1:{innerhtml = innerhtml + "<p onclick=readbeatmap('1','" + 
-										beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
-										sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-										"') style=\"color:red;cursor:pointer\">";break;}
-									case 2:{innerhtml = innerhtml + "<p onclick=readbeatmap('1','" + 
-										beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
-										sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-										"') style=\"color:green;cursor:pointer\">";break;}
-									case 3:{innerhtml = innerhtml + "<p onclick=readbeatmap('1','" + 
-										beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
-										sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-										"') style=\"color:blue;cursor:pointer\">";break;}
-									default:break;
-								}
-								if(data[i]["live_setting_id"]>20000)innerhtml = innerhtml + "ARCADE - " + data[i]["name"]+"</p>";
-								else 
-								{
-									var s_score = data[i]["s_rank_score"];
-									var s_combo = data[i]["s_rank_combo"];
-									var s = s_score/s_combo;
-									var id = data[i]["live_setting_id"];
-									if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
-										innerhtml = innerhtml + data[i]["difficulty_text"] + "(滑) - " + data[i]["name"]+"</p>";
-									else if((id==719)|(id==721)|(id==731))
-										innerhtml = innerhtml + data[i]["difficulty_text"] + "(滑) - " + data[i]["name"]+"</p>";
-									else 
-										innerhtml = innerhtml + data[i]["difficulty_text"] + " - " + data[i]["name"]+"</p>";
-								}
+                                var beatmap_path = "http://a.llsif.win/live/json/"+data[i]["notes_setting_asset"];
+                                var sound_asset = "http://r.llsif.win/"+data[i]["sound_asset"];
+                                var icon_asset = "http://r.llsif.win/"+data[i]["live_icon_asset"];
+                                var difficulty = data[i]["difficulty_text"];
+                                var level = data[i]["stage_level"];
+                                var name = data[i]["name"];
+                                var notes_cnt = data[i]["s_rank_combo"];
+                                switch(data[i]["attribute_icon_id"])
+                                {
+                                    case 1:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
+                                        beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" +
+                                        sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] +
+                                        "') style=\"background-color:#FBB;cursor:pointer;height: 30px\">";break;}
+                                    case 2:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
+                                        beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" +
+                                        sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] +
+                                        "') style=\"background-color:#BFB;cursor:pointer;height: 30px\">";break;}
+                                    case 3:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
+                                        beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" +
+                                        sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] +
+                                        "') style=\"background-color:#BBF;cursor:pointer;height: 30px\">";break;}
+                                    default:break;
+                                }
+                                if(data[i]["live_setting_id"]>20000)innerhtml = innerhtml +
+                                    "<th style='width:100px;height: 30px'>ARCADE</th><th style='width:60px;'>" +
+                                    notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
+                                else
+                                {
+                                    var s_score = data[i]["s_rank_score"];
+                                    var s_combo = data[i]["s_rank_combo"];
+                                    var s = s_score/s_combo;
+                                    var id = data[i]["live_setting_id"];
+                                    if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
+                                        innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                            "(滑) </th><th style='width:60px;'>" + notes_cnt +  "x</th><th>" + data[i]["name"]+"</th></tr>";
+                                    else if((id==719)|(id==721)|(id==731))
+                                        innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                            "(滑) </th><th style='width:60px;'>" + notes_cnt +  "x</th><th>" + data[i]["name"]+"</th></tr>";
+                                    else
+                                        innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                            "</th><th style='width:60px;'>" + notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
+                                }
 							}
 						}
-					}	
+					}
 				}
 			}
 		}
 	}
-	if(innerhtml=="")innerhtml="<p>（没有找到对应歌曲）</p>"
+    innerhtml = innerhtml + "</table>";
+    if(innerhtml=="<table style='width: 500px;text-align: center;'></table>")innerhtml="<p>（没有找到对应歌曲）</p>";
 	innerhtml = innerhtml + "<p id=\"bottom\"></p>";
 	songslist.innerHTML = innerhtml;
 }
@@ -916,7 +929,7 @@ function get_beatmaps(data)
 function search_beatmaps(data)
 {
     get_newsongs();
-    document.getElementById("songs").style.width = "350px";
+    document.getElementById("songs").style.width = "500px";
 	var innerhtml = "<table style='width: 500px;text-align: center;'>";
 	var songslist = document.getElementById("songs");
 	var len = data.length;
@@ -936,9 +949,7 @@ function search_beatmaps(data)
 				{
 					if(flag)
 					{	
-						innerhtml = innerhtml +
-                            "<tr><th colspan='3' style='text-align: center;background-color:#BBB;height:40px'>★"+
-                            j+"</th></tr>";
+						innerhtml = innerhtml + "<tr><th colspan='3' style='text-align: center;background-color:#BBB;height:40px'>★"+ j+"</th></tr>";
 						flag = false;
 					}
 					var beatmap_path = "http://a.llsif.win/live/json/"+data[i]["notes_setting_asset"];
@@ -988,7 +999,7 @@ function search_beatmaps(data)
 		}
     }
     innerhtml = innerhtml + "</table>";
-	if(innerhtml=="<table style='width: 500px;text-align: center;'></table>")innerhtml="<p>（没有找到对应歌曲）</p>"
+	if(innerhtml=="<table style='width: 500px;text-align: center;'></table>")innerhtml="<p>（没有找到对应歌曲）</p>";
 	innerhtml = innerhtml + "<p id=\"bottom\"></p>";
 	songslist.innerHTML = innerhtml;
 }
