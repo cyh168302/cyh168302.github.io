@@ -1,1 +1,1 @@
-# cyh168302.github.io
+Only a gitpage.The source code is same as the repo "scoreviewer"
