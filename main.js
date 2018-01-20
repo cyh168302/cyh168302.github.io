@@ -48,8 +48,8 @@ function get_newsongs2(data)
 {
     var songslist = document.getElementById("song_info");
     var innerhtml = songslist.innerHTML;
-    var new_songs = [529,396,472,459];
-    var new_beatmaps = [883,884,885,886,887,888,20004];
+    var new_songs = [530,529,464,396];
+    var new_beatmaps = [884,885,886,887,888,889,890,891,892,893];
     var len = data.length;
 
     var flag;
