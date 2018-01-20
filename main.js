@@ -39,7 +39,8 @@ function confirm_search(){$.getJSON("http://r.llsif.win/maps.json",function(data
 
 function get_newsongs()
 {
-    var in_html = "<p style=\"text-align: center;width: inherit\">————————————★★最新谱面★★————————————";
+    var in_html = "<table style='text-align:center;width:inherit'>" +
+        "<tr><th style=\"width: 600px;height:40px;background-color: #BBB\">最新谱面</th></tr>";
     document.getElementById("song_info").innerHTML = in_html;
     $.getJSON("http://r.llsif.win/maps.json",function(data){get_newsongs2(data);});
 }
@@ -47,13 +48,13 @@ function get_newsongs()
 function get_newsongs2(data)
 {
     var songslist = document.getElementById("song_info");
-    var innerhtml = songslist.innerHTML;
+    var innerhtml = "<table style='text-align:center;width:inherit'>" +
+        "<tr><th style=\"width: 600px;height:40px;background-color: #BBB\">最新谱面</th></tr>";
     var new_songs = [530,529,464,396];
     var new_beatmaps = [884,885,886,887,888,889,890,891,892,893];
     var len = data.length;
 
     var flag;
-    var flag2 = false;
     var i;
 	var j;
 	var k;
@@ -75,25 +76,40 @@ function get_newsongs2(data)
                 if(flag)
 				{
                     flag = false;
-                    if(flag2)
-                    	innerhtml = innerhtml + "</tr></table><p style=\"text-align: center;width: inherit\">————————————————————————————————</p>";
-                    else flag2 = true;
+                    innerhtml = innerhtml + "</tr></table><hr><table style='width: 600px;'>";
 
 					switch (data[i]["attribute_icon_id"])
 					{
-						case 1: {innerhtml = innerhtml + "<p  style=\"text-align: center;color:red\">";break;}
-						case 2: {innerhtml = innerhtml + "<p style=\"text-align: center;color:green\">";break;}
-						case 3: {innerhtml = innerhtml + "<p style=\"text-align: center;color:blue\">";break;}
+						case 1:
+                        {
+                            innerhtml = innerhtml + "<tr style=\"width: 600px;height:30px;text-align: center;background-color:#FBB\"><th>"
+                                + data[i]["name"] + "</th></tr></table><table style='width: 600px;'>" +
+                                "<tr style=\"width: 600px;height:30px;text-align: center;background-color:#FBB\">";
+                            break;
+                        }
+						case 2:
+                        {
+                            innerhtml = innerhtml + "<tr style=\"width: 600px;height:30px;text-align: center;background-color:#BFB\"><th>"
+                                + data[i]["name"] + "</th></tr></table><table style='width: 600px;'>" +
+                                "<tr style=\"width: 600px;height:30px;text-align: center;background-color:#BFB\">";
+                            break;
+                        }
+                        case 3:
+                        {
+                            innerhtml = innerhtml + "<tr style=\"width: 600px;height:30px;text-align: center;background-color:#BBF\"><th>"
+                                + data[i]["name"] + "</th></tr></table><table style='width: 600px;'>" +
+                                "<tr style=\"width: 600px;height:30px;text-align: center;background-color:#BBF\">";
+                            break;
+                        }
 						default:break;
 					}
-					innerhtml = innerhtml + data[i]["name"] + "</p><table style='width: 480px;position:relative;left:70px'><tr style=\"width: inherit\">  ";
 				}
 
                 for (k= 0; k < new_beatmaps.length; k++)
 				{
                     if (data[i]["live_setting_id"] === new_beatmaps[k])
                     {
-                        innerhtml = innerhtml + "<th style=\"text-align: center;width: inherit;cursor:pointer\"" +
+                        innerhtml = innerhtml + "<th style=\"text-align: center;cursor:pointer\"" +
 							" onclick=readbeatmap('1','" + beatmap_path + "','" + data[i]["live_track_id"] + "','" +
 							difficulty + "','" + level + "','" + sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + "') >";
 
@@ -133,6 +149,7 @@ function get_newsongs2(data)
             }
         }
     }
+    innerhtml += "</table>";
     songslist.innerHTML = innerhtml;
 }
 
@@ -900,7 +917,7 @@ function search_beatmaps(data)
 {
     get_newsongs();
     document.getElementById("songs").style.width = "350px";
-	var innerhtml = "";
+	var innerhtml = "<table style='width: 500px;text-align: center;'>";
 	var songslist = document.getElementById("songs");
 	var len = data.length;
 	var songname = document.getElementById("song_name").value;
@@ -912,13 +929,16 @@ function search_beatmaps(data)
 		flag = true;
 		for(i=0;i<len;i++)
 		{
+
 			if(data[i]["stage_level"]==j)
 			{
 				if((data[i]["name"].toLowerCase().indexOf(songname.toLowerCase())>=0)&(data[i]["difficulty_text"]!="TECHNICAL"))
 				{
 					if(flag)
 					{	
-						innerhtml = innerhtml + "<p>—————————★"+j+"—————————</p>";
+						innerhtml = innerhtml +
+                            "<tr><th colspan='3' style='text-align: center;background-color:#BBB;height:40px'>★"+
+                            j+"</th></tr>";
 						flag = false;
 					}
 					var beatmap_path = "http://a.llsif.win/live/json/"+data[i]["notes_setting_asset"];
@@ -927,23 +947,26 @@ function search_beatmaps(data)
 					var difficulty = data[i]["difficulty_text"];
 					var level = data[i]["stage_level"];
 					var name = data[i]["name"];
+					var notes_cnt = data[i]["s_rank_combo"];
 					switch(data[i]["attribute_icon_id"])
 					{
-						case 1:{innerhtml = innerhtml + "<p onclick=readbeatmap('2','" + 
+						case 1:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
 							beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
 							sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-							"') style=\"color:red;cursor:pointer\">";break;}
-						case 2:{innerhtml = innerhtml + "<p onclick=readbeatmap('2','" + 
+							"') style=\"background-color:#FBB;cursor:pointer;height: 30px\">";break;}
+						case 2:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
 							beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
 							sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-							"') style=\"color:green;cursor:pointer\">";break;}
-						case 3:{innerhtml = innerhtml + "<p onclick=readbeatmap('2','" + 
+							"') style=\"background-color:#BFB;cursor:pointer;height: 30px\">";break;}
+						case 3:{innerhtml = innerhtml + "<tr onclick=readbeatmap('2','" +
 							beatmap_path + "','" + data[i]["live_track_id"] + "','" + difficulty + "','" + level + "','" + 
 							sound_asset + "','" + icon_asset + "','" + data[i]["s_rank_combo"] + 
-							"') style=\"color:blue;cursor:pointer\">";break;}
+							"') style=\"background-color:#BBF;cursor:pointer;height: 30px\">";break;}
 						default:break;
 					}
-                    if(data[i]["live_setting_id"]>20000)innerhtml = innerhtml + "ARCADE - " + data[i]["name"]+"</p>";
+                    if(data[i]["live_setting_id"]>20000)innerhtml = innerhtml +
+                        "<th style='width:100px;height: 30px'>ARCADE</th><th style='width:60px;'>" +
+                        notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
                     else
                     {
                         var s_score = data[i]["s_rank_score"];
@@ -951,17 +974,21 @@ function search_beatmaps(data)
                         var s = s_score/s_combo;
                         var id = data[i]["live_setting_id"];
                         if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
-                            innerhtml = innerhtml + data[i]["difficulty_text"] + "(滑) - " + data[i]["name"]+"</p>";
+                            innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                "(滑) </th><th style='width:60px;'>" + notes_cnt +  "x</th><th>" + data[i]["name"]+"</th></tr>";
                         else if((id==719)|(id==721)|(id==731))
-                            innerhtml = innerhtml + data[i]["difficulty_text"] + "(滑) - " + data[i]["name"]+"</p>";
+                            innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                "(滑) </th><th style='width:60px;'>" + notes_cnt +  "x</th><th>" + data[i]["name"]+"</th></tr>";
                         else
-                            innerhtml = innerhtml + data[i]["difficulty_text"] + " - " + data[i]["name"]+"</p>";
+                            innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
+                                "</th><th style='width:60px;'>" + notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
                     }
 				}	
 			}
 		}
-	}
-	if(innerhtml=="")innerhtml="<p>（没有找到对应歌曲）</p>"
+    }
+    innerhtml = innerhtml + "</table>";
+	if(innerhtml=="<table style='width: 500px;text-align: center;'></table>")innerhtml="<p>（没有找到对应歌曲）</p>"
 	innerhtml = innerhtml + "<p id=\"bottom\"></p>";
 	songslist.innerHTML = innerhtml;
 }
