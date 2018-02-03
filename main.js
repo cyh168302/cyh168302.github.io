@@ -799,11 +799,7 @@ function get_beatmaps(data)
 			
 	if(song_level!="0")
 	{
-<<<<<<< HEAD
 	    j = parseInt(song_level);
-=======
-		j = parseInt(song_level);
->>>>>>> origin/master
 		for(p=1;p<7;p++)
 		{
 			for(i=0;i<len;i++)
