@@ -46,8 +46,8 @@ function get_newsongs2(data)
     var songslist = document.getElementById("song_info");
     var innerhtml = "<div style='width: 600px;position: relative;top: 10px' ><table style='text-align:center;width:inherit'>" +
         "<tr><th style=\"width: 600px;height:40px;background-color: #BBB\">最近更新</th></tr>";
-    var new_songs = [530,529,464,396];
-    var new_beatmaps = [884,885,886,887,888,889,890,891,892,893];
+    var new_songs = [530, 464, 447];
+    var new_beatmaps = [889, 890, 891, 892, 893, 894];
     var len = data.length;
 
     var flag;
@@ -799,6 +799,7 @@ function get_beatmaps(data)
 			
 	if(song_level!="0")
 	{
+	    j = parseInt(song_level);
 		for(p=1;p<7;p++)
 		{
 			for(i=0;i<len;i++)
