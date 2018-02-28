@@ -1,7 +1,7 @@
 // JavaScript Document
 $(window).scroll(function()
 {
-    var t = document.body.scrollTop;
+    var t = $(document).scrollTop();
     var obj = document.getElementById("song_info");
     if (t < 565)
     {
@@ -46,8 +46,8 @@ function get_newsongs2(data)
     var songslist = document.getElementById("song_info");
     var innerhtml = "<div style='width: 600px;position: relative;top: 10px' ><table style='text-align:center;width:inherit'>" +
         "<tr><th style=\"width: 600px;height:40px;background-color: #BBB\">最近更新</th></tr>";
-    var new_songs = [447, 455, 3];
-    var new_beatmaps = [894, 895, 20005];
+    var new_songs = [531, 532, 458, 465];
+    var new_beatmaps = [896, 897, 898, 899, 900, 901, 902, 903, 904, 905];
     var len = data.length;
 
     var flag;
