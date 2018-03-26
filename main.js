@@ -46,8 +46,8 @@ function get_newsongs2(data)
     var songslist = document.getElementById("song_info");
     var innerhtml = "<div style='width: 600px;position: relative;top: 10px' ><table style='text-align:center;width:inherit'>" +
         "<tr><th style=\"width: 600px;height:40px;background-color: #BBB\">最近更新</th></tr>";
-    var new_songs = [531, 532, 458, 465];
-    var new_beatmaps = [896, 897, 898, 899, 900, 901, 902, 903, 904, 905];
+    var new_songs = [534,449,484];
+    var new_beatmaps = [912,913,914,915,916,917];
     var len = data.length;
 
     var flag;
@@ -132,7 +132,7 @@ function get_newsongs2(data)
 						var s_combo = data[i]["s_rank_combo"];
 						var s = s_score/s_combo;
 						var id = data[i]["live_setting_id"];
-						if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
+						if((s!=739)&(data[i]["difficulty_text"]=="MASTER")&(id!=917))
                             innerhtml = innerhtml + data[i]["stage_level"]  + " - " + data[i]["s_rank_combo"] + "x(滑键)</th> ";
 						else if((id==719)|(id==721)|(id==731))
                             innerhtml = innerhtml + data[i]["stage_level"]  + " - " + data[i]["s_rank_combo"] + "x(滑键)</th> ";
@@ -844,7 +844,7 @@ function get_beatmaps(data)
                                     var s_combo = data[i]["s_rank_combo"];
                                     var s = s_score/s_combo;
                                     var id = data[i]["live_setting_id"];
-                                    if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
+                                    if((s!=739)&(data[i]["difficulty_text"]=="MASTER")&(id!=917))
                                         innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
                                             "(滑)</th><th style='width:60px;'>★" + j + "</th><th style='width:60px;'>"
                                             + notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
@@ -921,7 +921,7 @@ function get_beatmaps(data)
                                             var s_combo = data[i]["s_rank_combo"];
                                             var s = s_score/s_combo;
                                             var id = data[i]["live_setting_id"];
-                                            if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
+                                            if((s!=739)&(data[i]["difficulty_text"]=="MASTER")&(id!=917))
                                                 innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
                                                     "(滑)</th><th style='width:60px;'>★" + j + "</th><th style='width:60px;'>"
                                                     + notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
@@ -1009,7 +1009,7 @@ function search_beatmaps(data)
                             var s_combo = data[i]["s_rank_combo"];
                             var s = s_score/s_combo;
                             var id = data[i]["live_setting_id"];
-                            if((s!=739)&(data[i]["difficulty_text"]=="MASTER"))
+                            if((s!=739)&(data[i]["difficulty_text"]=="MASTER")&(id!=917))
                                 innerhtml = innerhtml + "<th style='width:100px;height: 30px'>" + data[i]["difficulty_text"] +
                                     "(滑)</th><th style='width:60px;'>★" + j + "</th><th style='width:60px;'>"
                                     + notes_cnt + "x</th><th>" + data[i]["name"]+"</th></tr>";
