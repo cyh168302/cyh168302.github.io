@@ -46,8 +46,8 @@ function get_newsongs2(data)
     var songslist = document.getElementById("song_info");
     var innerhtml = "<div style='width: 600px;position: relative;top: 10px' ><table style='text-align:center;width:inherit'>" +
         "<tr><th style=\"width: 600px;height:40px;background-color: #BBB\">最近更新</th></tr>";
-    var new_songs = [535, 536, 466, 489, 454];
-    var new_beatmaps = [918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928];
+    var new_songs = [537, 495, 472, 498];
+    var new_beatmaps = [929, 930, 931, 932, 933, 934, 935];
     var len = data.length;
 
     var flag;
@@ -312,7 +312,7 @@ function drawnote(type,value,x,y)
 
 function readbeatmap(way,path,id,difficulty,level,musicpath,iconpath,combo)
 {
-    var t = document.body.scrollTop;
+    var t = document.documentElement.scrollTop;
     var text = document.getElementById("topscroll");
     text.value = t;
     document.getElementById("song_info").innerHTML = "";
