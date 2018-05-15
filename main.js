@@ -46,8 +46,8 @@ function get_newsongs2(data)
     var songslist = document.getElementById("song_info");
     var innerhtml = "<div style='width: 600px;position: relative;top: 10px' ><table style='text-align:center;width:inherit'>" +
         "<tr><th style=\"width: 600px;height:40px;background-color: #BBB\">最近更新</th></tr>";
-    var new_songs = [537, 495, 472, 498];
-    var new_beatmaps = [929, 930, 931, 932, 933, 934, 935];
+    var new_songs = [538, 539, 498, 469]
+    var new_beatmaps = [935, 936, 937, 938, 939, 940, 941, 942, 943, 944];
     var len = data.length;
 
     var flag;
