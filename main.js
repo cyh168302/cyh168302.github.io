@@ -470,16 +470,88 @@ function startDraw(path,beatmap,bpm,name,difficulty,level,musicpath,iconpath,com
 					{name : "R4",value : Math.round(pos_notes_with_combo[8]/total_notes_with_combo*10000)/100,color : '#80699b'}];
 					
 	var chart = new iChart.Column2D(
-		{render : 'table', data : data,
-			title : {text : 'Note位置分布图', color : '#3e576f', fontsize : 15},
-			subtitle : {text : '均为带Combo权重', color : '#6d869f', fontsize : 11},
-			footnote : {text : 'ichartjs.com', color : '#909090', fontsize : 6, padding : '0 38'},
-			width : 650, height : 320, background_color:'#fbfbfb', label : {fontsize:7, color : '#666666'},
-			shadow : false, shadow_blur : 2, shadow_color : '#aaaaaa', shadow_offsetx : 1, shadow_offsety : 0, column_width : 62,
-			sub_option : {listeners : {parseText : function(r, t) {return t + "%";}}, label : {fontsize:7, fontweight:200, color : '#4572a7'},
-			border : {width : 2, color : '#ffffff'}},
-			coordinate : {background_color : null, grid_color : '#c0c0c0', width : 450, axis : {color : '#c0d0e0', width : [0, 0, 1, 0]},
-			scale : [{position : 'left', start_scale : 0, end_scale : 15, scale_space : 5, scale_enable : false, label : {fontsize:7, color : '#666666'}}]}});
+		{	
+			render : 'table', 
+			data : data,
+			title : 
+			{
+				text : 'Note位置分布图', 
+				color : '#3e576f', 
+				fontsize : 15
+			},
+			subtitle : 
+			{
+				text : '均为带Combo权重', 
+				color : '#6d869f', 
+				fontsize : 11
+			},
+			footnote : 
+			{
+				text : 'ichartjs.com', 
+				color : '#909090', 
+				fontsize : 6, 
+				padding : '0 38'
+			},
+			width : 650, 
+			height : 320, 
+			background_color:'#fbfbfb', 
+			label : 
+			{
+				fontsize : 11, 
+				color : '#666666'
+			},
+			shadow : false, 
+			shadow_blur : 2, 
+			shadow_color : '#aaaaaa', 
+			shadow_offsetx : 1, 
+			shadow_offsety : 0, 
+			column_width : 62,
+			sub_option : 
+			{
+				listeners : 
+				{
+					parseText : 
+						function(r, t) {return t + "%";}
+				}, 
+				label : 
+				{
+					fontsize : 10, 
+					fontweight:200, 
+					color : '#4572a7'
+				},
+				border : 
+				{
+					width : 2, 
+					color : '#ffffff'
+				}
+			},
+			coordinate : 
+			{
+				background_color : null, 
+				grid_color : '#c0c0c0', 
+				width : 450, 
+				axis : 
+				{
+					color : '#c0d0e0', 
+					width : [0, 0, 1, 0]
+				},
+				scale : 
+				[
+					{
+						position : 'left', 
+						start_scale : 0, 
+						end_scale : 15, 
+						scale_space : 5, 
+						scale_enable : false, 
+						label : 
+						{
+							fontsize:7, 
+							color : '#666666'
+						}
+					}
+				]
+			}
+		});
 	//*利用自定义组件构造左侧说明文本。
 	chart.plugin(new iChart.Custom({
 		drawFn:function(){
